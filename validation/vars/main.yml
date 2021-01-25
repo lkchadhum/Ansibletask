@@ -1,0 +1,4 @@
+---
+# vars file for validation
+playbook_var1: myapp01
+playbook_var2: myapp02

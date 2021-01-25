@@ -1,0 +1,33 @@
+---
+- hosts: localhost
+  gather_facts: no
+  roles:
+    - validation
+  vars:
+    playbook_name: var_tester_playbook
+    playbook_var: unset
+
+    playbook_dict:
+        - name: myapp01
+          datastores_persisted:
+            - fsdp01a
+            - fsdp02b
+          datastores_transient:
+            - fsdt01a
+            - fsdt02a
+            - fsdt02b
+        - name: myapp02
+          datastores_persisted:
+            - fsdp01a
+            - fsdp01b
+            - fsdp02a
+          datastores_transient:
+            - fsdt01a
+            - fsdt02a
+            - fsdt03a
+  tasks:
+  - debug:
+      msg: " {{ item.0.name }} has a transient datastore named:{{ item.1 }} "
+    with_subelements:
+      - "{{ playbook_dict  }}"
+      - datastores_transient

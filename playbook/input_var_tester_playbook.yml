@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  gather_facts: no
+  roles:
+    - validation
+  vars:
+    playbook_name: var_tester_playbook
+    playbook_var: unset
+  tasks:
+
+  - fail:
+     msg: Invalid var value  for var_tester_playbook -playbook_var Expected values-  {{ playbook_var1  }}, {{ playbook_var2 }}
+    when: '"myapp03" not in playbook_var1 or "myapp03" not in playbook_var2'
